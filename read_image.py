@@ -64,18 +64,17 @@ def getBounds(imgs):
         i += 1
     return bounds
 
-# def reduceImage(img, b):
-    
-
+def arrToImage(img, b):
+    size = max(b[MAX_X] - b[MIN_X], b[MAX_Y]-b[MIN_Y]) + 6
+    new_img = [[0 for _ in range(size)] for _ in range(size)]
+    for p in img:
+        x,y = p
+        new_img[x-b[MIN_X]+5][y-b[MIN_Y]+5] = 255
+    return new_img
 def scaleImage(imgs):
     bounds = getBounds(imgs)
     for i in range(len(imgs)):
-        b = bounds[i]
-        size = max(b[MAX_X], b[MAX_Y]) + 6
-        new_img = [[0 for _ in range(size)] for _ in range(size)]
-        for p in imgs[i]:
-            x,y = p
-            new_img[x-b[MIN_X]+5][y-b[MIN_Y]+5] = 255
+        new_img = arrToImage(imgs[i], bounds[i])
         img = Image.fromarray(np.uint8(new_img))
         basewidth = 28
         wpercent = (basewidth / float(img.size[0]))
