@@ -99,8 +99,7 @@ def separateImge(path, name_img):
     scaleImage(imgs,name_img)
 
 
-separateImge("car_plate.png", "img_plate")
-separateImge("handwrittenPhone.png", "hw_image")
+
 
 
 

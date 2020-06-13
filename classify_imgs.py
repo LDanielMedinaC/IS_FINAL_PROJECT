@@ -29,5 +29,3 @@ def tag_image(n_imgs, name_img, num_tag):
         print(pred)
     plt.show()
 
-tag_image(13,"hw_image", [-1,3,-1,3,7,8,8,7,6,5,2,0,-1])
-tag_image(6,"img_plate", [-1,3,9,5,7,8])
