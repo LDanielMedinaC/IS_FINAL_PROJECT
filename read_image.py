@@ -65,11 +65,13 @@ def getBounds(imgs):
     return bounds
 
 def arrToImage_arr(img, b):
-    size = max(b[MAX_X] - b[MIN_X], b[MAX_Y]-b[MIN_Y]) + 6
+    size = max(b[MAX_X] - b[MIN_X], b[MAX_Y]-b[MIN_Y]) + 7
+    middle_x = (size-b[MAX_X] + b[MIN_X])//2
+    middle_y = (size-b[MAX_Y] + b[MIN_Y])//2
     new_img = [[0 for _ in range(size)] for _ in range(size)]
     for p in img:
         x,y = p
-        new_img[x-b[MIN_X]+5][y-b[MIN_Y]+5] = 255
+        new_img[x-b[MIN_X]+middle_x][y-b[MIN_Y]+middle_y] = 255
     return new_img
 
 def scaleImage(imgs, name_img):
@@ -81,9 +83,15 @@ def scaleImage(imgs, name_img):
         wpercent = (basewidth / float(img.size[0]))
         hsize = int((float(img.size[1]) * float(wpercent)))
         img = img.resize((basewidth, hsize), PIL.Image.ANTIALIAS)
+        # x,y = img.size
+        # if(y == 27):
+        #     img_arr = np.asanyarray(img)
+        #     arr = [255 for _ in range(28)]
+        #     np.append(img_arr, arr)
+        #     img = Image.fromarray(np.uint8(img_arr))
+        #     print("->",img.size, len(img_arr), len(img_arr))
+        print(img.size)
         img.save((name_img+"{}.png".format(i)))
-        img.show()
-
 def separateImge(path, name_img):
     pixels = getPixels(path)
     points = getPoints(pixels)

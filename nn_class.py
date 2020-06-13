@@ -15,7 +15,7 @@ model = tf.keras.Sequential()
 input_layer = tf.keras.layers.Flatten(input_shape=(28,28))
 model.add(input_layer)
 
-hidden_layer = tf.keras.layers.Dense(100, activation="sigmoid")
+hidden_layer = tf.keras.layers.Dense(200, activation="sigmoid")
 model.add(hidden_layer)
 
 output_layer = tf.keras.layers.Dense(10, activation="sigmoid")
@@ -26,7 +26,7 @@ mnist = tf.keras.datasets.mnist
 model.compile(optimizer=tf.optimizers.SGD(0.01), loss='sparse_categorical_crossentropy', metrics=['acc'])
 (x_train,y_train), (x_test,y_test) = mnist.load_data()
 print(type(x_train[1]))
-history = model.fit(x_train, y_train, batch_size=100, epochs=10, validation_data=(x_test, y_test))
+history = model.fit(x_train, y_train, batch_size=100, epochs=20, validation_data=(x_test, y_test))
 
 model.save("trained_model")
 

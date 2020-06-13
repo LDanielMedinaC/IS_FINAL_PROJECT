@@ -10,11 +10,24 @@ from collections import Counter
 
 model = tf.keras.models.load_model('trained_model')
 
-def tag_image(n_imgs, name_img):
+
+
+def tag_image(n_imgs, name_img, num_tag):
+    images = []
     for i in range(n_imgs):
         image = Image.open(name_img+("{}.png").format(i)).convert("L")
         img_arr = np.array(image)
         img_arr = img_arr.reshape(1,28,28,1)
+        images.append(img_arr)
         pred = model.predict_classes(img_arr)
+        plt.subplot(3, 6, i+1)
+        plt.xticks([])
+        plt.yticks([])
+        plt.grid(False)
+        plt.imshow(image, cmap='gray')
+        plt.xlabel("{}/{}".format(pred, num_tag[i]))
         print(pred)
-tag_image(13,"hw_image")
+    plt.show()
+
+tag_image(13,"hw_image", [-1,3,-1,3,7,8,8,7,6,5,2,0,-1])
+tag_image(6,"img_plate", [-1,3,9,5,7,8])
